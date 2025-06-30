@@ -1,5 +1,6 @@
 plugins {
-    kotlin("jvm") version "2.1.10"
+    java
+    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 group = "me.thatonedevil"
@@ -16,9 +17,12 @@ dependencies {
     implementation("me.clip:placeholderapi:2.11.6")
 }
 
-tasks.test {
-    useJUnitPlatform()
+tasks.build {
+    dependsOn("shadowJar")
 }
-kotlin {
-    jvmToolchain(21)
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
 }
